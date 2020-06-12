@@ -1,9 +1,9 @@
 import { ACTIONS } from '../constants';
 
 const initialState = {
-  host: 'localhost',
+  host: 'janusgraph',
   port: '8182',
-  query: '',
+  query: 'g.V()',
   error: null
 };
 
