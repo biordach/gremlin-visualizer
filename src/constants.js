@@ -3,6 +3,7 @@ export const COMMON_GREMLIN_ERROR = 'Invalid query. Please execute a query to ge
 export const ACTIONS = {
   SET_HOST: 'SET_HOST',
   SET_PORT: 'SET_PORT',
+  SET_TRAVERSAL: 'SET_TRAVERSAL',
   SET_QUERY: 'SET_QUERY',
   SET_ERROR: 'SET_ERROR',
   SET_NETWORK: 'SET_NETWORK',

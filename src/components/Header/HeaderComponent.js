@@ -15,7 +15,7 @@ class Header extends React.Component {
     this.props.dispatch({ type: ACTIONS.SET_ERROR, payload: null });
     axios.post(
       QUERY_ENDPOINT,
-      { host: this.props.host, port: this.props.port, query: this.props.query, nodeLimit: this.props.nodeLimit },
+      { host: this.props.host, port: this.props.port, traversal: this.props.traversal, query: this.props.query, nodeLimit: this.props.nodeLimit },
       { headers: { 'Content-Type': 'application/json' } }
     ).then((response) => {
       onFetchQuery(response, this.props.query, this.props.nodeLabels, this.props.dispatch);
@@ -32,6 +32,10 @@ class Header extends React.Component {
     this.props.dispatch({ type: ACTIONS.SET_PORT, payload: port });
   }
 
+  onTraversalChanged(traversal) {
+    this.props.dispatch({ type: ACTIONS.SET_TRAVERSAL, payload: traversal });
+  }
+
   onQueryChanged(query) {
     this.props.dispatch({ type: ACTIONS.SET_QUERY, payload: query });
   }
@@ -42,7 +46,10 @@ class Header extends React.Component {
         <form noValidate autoComplete="off">
           <TextField value={this.props.host} onChange={(event => this.onHostChanged(event.target.value))} id="standard-basic" label="host" style={{width: '10%'}} />
           <TextField value={this.props.port} onChange={(event => this.onPortChanged(event.target.value))} id="standard-basic" label="port" style={{width: '10%'}} />
-          <TextField value={this.props.query} onChange={(event => this.onQueryChanged(event.target.value))} id="standard-basic" label="gremlin query" style={{width: '60%'}} />
+
+          <TextField value={this.props.traversal} onChange={(event => this.onTraversalChanged(event.target.value))} id="standard-basic" label="traversal" style={{width: '5%'}} />
+
+          <TextField value={this.props.query} onChange={(event => this.onQueryChanged(event.target.value))} id="standard-basic" label="gremlin query" style={{width: '55%'}} />
           <Button variant="contained" color="primary" onClick={this.sendQuery.bind(this)} style={{width: '150px'}} >Execute</Button>
           <Button variant="outlined" color="secondary" onClick={this.clearGraph.bind(this)} style={{width: '150px'}} >Clear Graph</Button>
         </form>
@@ -59,6 +66,7 @@ export const HeaderComponent = connect((state)=>{
   return {
     host: state.gremlin.host,
     port: state.gremlin.port,
+    traversal: state.gremlin.traversal,
     query: state.gremlin.query,
     error: state.gremlin.error,
     nodes: state.graph.nodes,

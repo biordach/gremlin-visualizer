@@ -4,6 +4,7 @@ const initialState = {
   host: 'janusgraph',
   port: '8182',
   query: 'g.V()',
+  traversal: 'g',
   error: null
 };
 
@@ -14,6 +15,9 @@ export const reducer =  (state=initialState, action)=>{
     }
     case ACTIONS.SET_PORT: {
       return { ...state, port: action.payload }
+    }
+    case ACTIONS.SET_TRAVERSAL: {
+      return { ...state, traversal: action.payload }
     }
     case ACTIONS.SET_QUERY: {
       return { ...state, query: action.payload, error: null }
